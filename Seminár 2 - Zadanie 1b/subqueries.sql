@@ -108,7 +108,7 @@ SELECT
     ) AS region_min_amount
 FROM flourmills_sales s;
 
-Ak sa produkt nachádza vo výsledku, znamená to, že bol predaný aspoň v dvoch rôznych mesiacoch
+-- Ak sa produkt nachádza vo výsledku, znamená to, že bol predaný aspoň v dvoch rôznych mesiacoch
 
 SELECT
     s.product_category,
@@ -120,4 +120,33 @@ WHERE EXISTS (
     FROM flourmills_sales x
     WHERE x.product_category = s.product_category
       AND x.total_amount > 200000
+);
+
+SELECT DISTINCT s.product_category
+FROM flourmills_sales s
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales r
+    WHERE r.product_category = s.product_category
+    GROUP BY r.product_category
+    HAVING COUNT(DISTINCT r.region) > 3
+);
+
+
+;SELECT COUNT(DISTINCT t1.product_category) AS category_count
+FROM flourmills_sales t1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM flourmills_sales t2
+    WHERE t2.product_category = t1.product_category
+      AND t2.total_amount > 500000
+);
+
+SELECT DISTINCT t1.region
+FROM flourmills_sales t1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM flourmills_sales t2
+    WHERE t2.region = t1.region
+      AND t2.product_category = 'Flour'
 );
