@@ -87,3 +87,11 @@ FROM (
 ) AS category_sales
 WHERE total_sales > 50000000
 ORDER BY total_sales DESC;
+
+SELECT COUNT(*)
+FROM flourmills_sales AS t1
+WHERE total_amount > (
+    SELECT AVG(t2.total_amount)
+    FROM flourmills_sales AS t2
+    WHERE t2.product_category = t1.product_category
+);
