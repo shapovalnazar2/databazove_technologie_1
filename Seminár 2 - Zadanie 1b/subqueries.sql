@@ -53,3 +53,12 @@ FROM flourmills_sales;
 SELECT product_name
 FROM flourmills_sales
 WHERE total_amount = 9511208.41;
+
+SELECT
+    product_name,
+    total_amount,
+    total_amount / (
+        SELECT SUM(total_amount)
+        FROM flourmills_sales
+    ) AS amount_share
+FROM flourmills_sales;
