@@ -109,3 +109,15 @@ SELECT
 FROM flourmills_sales s;
 
 Ak sa produkt nachádza vo výsledku, znamená to, že bol predaný aspoň v dvoch rôznych mesiacoch
+
+SELECT
+    s.product_category,
+    s.product_name,
+    s.total_amount
+FROM flourmills_sales s
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales x
+    WHERE x.product_category = s.product_category
+      AND x.total_amount > 200000
+);
