@@ -40,3 +40,16 @@ WHERE product_category = (
     LIMIT 1
 )
 ORDER BY sales_id ASC;
+
+SELECT
+    product_name,
+    total_amount,
+    (
+        SELECT AVG(total_amount)
+        FROM flourmills_sales
+    ) AS avg_amount
+FROM flourmills_sales;
+
+SELECT product_name
+FROM flourmills_sales
+WHERE total_amount = 9511208.41;
