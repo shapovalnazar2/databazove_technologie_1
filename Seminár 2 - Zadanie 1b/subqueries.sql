@@ -107,3 +107,5 @@ SELECT
         WHERE r.region = s.region
     ) AS region_min_amount
 FROM flourmills_sales s;
+
+Ak sa produkt nachádza vo výsledku, znamená to, že bol predaný aspoň v dvoch rôznych mesiacoch
