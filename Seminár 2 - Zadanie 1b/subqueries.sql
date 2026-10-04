@@ -95,3 +95,15 @@ WHERE total_amount > (
     FROM flourmills_sales AS t2
     WHERE t2.product_category = t1.product_category
 );
+
+
+SELECT
+    s.product_name,
+    s.region,
+    s.total_amount,
+    (
+        SELECT MIN(r.total_amount)
+        FROM flourmills_sales r
+        WHERE r.region = s.region
+    ) AS region_min_amount
+FROM flourmills_sales s;
